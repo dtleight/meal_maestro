@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "545950414188",
+    "project_id": "mealmaestro-c79a6",
+    "storage_bucket": "mealmaestro-c79a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:545950414188:android:0600a1d73602fad72c6f49",
+        "android_client_info": {
+          "package_name": "com.dtleight.meal_maestro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "545950414188-8p7gsq0c478d4hm21571a72ir91vq183.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dtleight.meal_maestro",
+            "certificate_hash": "7850d275b22c2bb91569fd850b72d45fdb758603"
+          }
+        },
+        {
+          "client_id": "545950414188-kf5tv4e0slgh886jfcfqstc4edfc12aq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALs3HZWGKU8rJL3bQtdg5Sx-z-Hr_cIuw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "545950414188-kf5tv4e0slgh886jfcfqstc4edfc12aq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
