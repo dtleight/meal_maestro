@@ -14,7 +14,8 @@ class MyApp extends StatelessWidget
     return MaterialApp(
       title: 'Meal Maestro',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.blue
+
       ),
       home:LoginContainer(),
     );
