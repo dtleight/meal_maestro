@@ -9,7 +9,7 @@ import 'package:meal_maestro/Pages/ShoppingListPage.dart';
 class HomeContainer extends StatefulWidget
 {
   @override
-  State<StatefulWidget> createState() 
+  State<StatefulWidget> createState()
   {
     return HomeContainerState();
   }
@@ -27,13 +27,18 @@ class HomeContainerState extends State<HomeContainer>
       body: active[index],
       bottomNavigationBar: BottomNavigationBar
         (
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.calendar_today), tooltip: "Recipe Manager"),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_basket_rounded), tooltip: "Shoping List"),
-          BottomNavigationBarItem(icon: Icon(Icons.calendar_today), tooltip: "Calendar"),
-          BottomNavigationBarItem(icon: Icon(Icons.food_bank), tooltip: "Pantry"),
-          BottomNavigationBarItem(icon: Icon(Icons.share), tooltip: "Share")
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.calendar_today,), label: "Recipe Manager"),
+          BottomNavigationBarItem(icon: Icon(Icons.shopping_basket_rounded), label: "Shoping List"),
+          BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: "Calendar"),
+          BottomNavigationBarItem(icon: Icon(Icons.food_bank), label: "Pantry"),
+          BottomNavigationBarItem(icon: Icon(Icons.share), label: "Share")
         ],
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.black,
+        showUnselectedLabels: true,
+        selectedFontSize: 18,
+        currentIndex: index,
         onTap: (int index)
         {
             setState((){this.index = index;});
@@ -41,5 +46,5 @@ class HomeContainerState extends State<HomeContainer>
       ),
     );
   }
-  
+
 }

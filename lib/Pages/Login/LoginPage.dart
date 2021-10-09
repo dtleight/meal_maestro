@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_maestro/Containers/LoginContainer.dart';
 
 class LoginPage extends StatelessWidget
 {
+  LoginContainerState superState;
+  LoginPage(this.superState);
   final InputDecoration inputTheme = InputDecoration(
     filled: true,
     fillColor: Colors.white,
@@ -30,8 +33,14 @@ class LoginPage extends StatelessWidget
          obscureText: true,
        ),
        Spacer(flex: 1,),
-       TextButton(child: Text("Login", style: TextStyle(color: Colors.black),),onPressed: (){},),
-       TextButton(child: Text("Register", style: TextStyle(color: Colors.black),), onPressed: (){},),
+       TextButton(
+         child: Text("Login", style: TextStyle(color: Colors.black),),
+         onPressed: (){ superState.login(loginController.value.text,passwordController.value.text);},),
+       TextButton(
+            child: Text("Register",
+            style: TextStyle(color: Colors.black),),
+            onPressed: (){ superState.updateState(LoginPages.RegisterPage);},
+       ),
         Spacer(flex: 2,),
 
       ],

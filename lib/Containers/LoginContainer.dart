@@ -21,19 +21,18 @@ class LoginContainer extends StatefulWidget
 
 class LoginContainerState extends State<LoginContainer>
 {
-  //List<Widget> pages = [LoginPage(),RegisterPage(),EmailVerificationPage()];
   int index = 0;
   @override
   Widget build(BuildContext context)
   {
     return Scaffold
       (
-      body: LoginContainerPages.values[index].build,
+      body: LoginPages.values[index].build(this),
     );
 
   }
 
-  void updateState(LoginContainerPages page)
+  void updateState(LoginPages page)
   {
     setState((){index = page.index;});
   }
@@ -41,7 +40,7 @@ class LoginContainerState extends State<LoginContainer>
   ///Creates a navigation route to the home page and clears the navigation stack.
   void moveToHomePage() async
   {
-    Navigator.of(context).pushAndRemoveUntil(new MaterialPageRoute(
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
       builder: (ctxt) {
         return HomeContainer();
       },
@@ -54,7 +53,6 @@ class LoginContainerState extends State<LoginContainer>
     CollectionReference collectionReference =
     FirebaseFirestore.instance.collection("users");
     DocumentSnapshot snapshot = await collectionReference.doc(uid).get();
-    print(uid);
     if (snapshot
         .exists) //An account exists for this user, query data from the database
         {
@@ -62,7 +60,7 @@ class LoginContainerState extends State<LoginContainer>
       items.map((e) => e as int);
       moveToHomePage();
     } else {
-      updateState(LoginContainerPages.RegistrationInfoPage);
+      updateState(LoginPages.RegistrationInfoPage);
     }
   }
 
@@ -73,7 +71,7 @@ class LoginContainerState extends State<LoginContainer>
           .createUserWithEmailAndPassword(email: email, password: password);
       await FirebaseAuth.instance.currentUser!.updateDisplayName(name);
       //FirebaseAnalytics().logSignUp(signUpMethod: signInMethod);
-      updateState(LoginContainerPages.RegistrationInfoPage);
+      updateState(LoginPages.RegistrationInfoPage);
       return true;
     } on FirebaseAuthException catch (e) {
       print(e.code);
@@ -94,7 +92,7 @@ class LoginContainerState extends State<LoginContainer>
   }
 
   /// instantiate a user
-  void createUser(DateTime birthdate, String city) {
+  void createUser(DateTime birthdate,) {
     String? uid = FirebaseAuth.instance.currentUser!.uid;
     String? name = FirebaseAuth.instance.currentUser!.displayName;
     String? email = FirebaseAuth.instance.currentUser!.email;
@@ -103,12 +101,8 @@ class LoginContainerState extends State<LoginContainer>
         'name': name,
         'email': email,
         'birthdate': birthdate,
-        'account_cards': [],
-        'city': city,
-        'share_requests': [],
-        'shares':  [],
-        'deck': [],
-        'hand': [],
+        'recipes': [],
+        'pantry':[],
       },
     );
 
@@ -144,14 +138,14 @@ class LoginContainerState extends State<LoginContainer>
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        print('Wrong password provided for that user.'); //BRB
       }
     }
   }
 
 }
 
-enum LoginContainerPages
+enum LoginPages
 {
   LoginPage,
   RegisterPage,
@@ -159,19 +153,18 @@ enum LoginContainerPages
   EmailVerificationPage,
 }
 
-extension LoginContainerExtension on LoginContainerPages
+extension LoginContainerExtension on LoginPages
 {
-  Widget get build {
+  Function get build {
     switch (this) {
-      case LoginContainerPages.LoginPage:
-        return LoginPage();
-      case LoginContainerPages.RegisterPage:
-        return RegisterPage();
-      case LoginContainerPages.EmailVerificationPage:
-        return EmailVerificationPage();
-      case LoginContainerPages.RegistrationInfoPage:
-        return RegistrationInfoPage();
+      case LoginPages.LoginPage:
+        return (LoginContainerState state) => LoginPage(state);
+      case LoginPages.RegisterPage:
+        return (LoginContainerState state) => RegisterPage(state);
+      case LoginPages.RegistrationInfoPage:
+        return (LoginContainerState state) => RegistrationInfoPage(state);
     }
+    return () => null;
   }
 
 }
