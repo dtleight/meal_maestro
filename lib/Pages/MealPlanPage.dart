@@ -30,7 +30,21 @@ class MealPlanPageState extends State<MealPlanPage>
            {
              return selectedDay.compareTo(day) == 0;
            },
-           onDaySelected: (selectedDay, focusedDay) {
+           onDaySelected: (selectedDay, focusedDay)
+           {
+             //Display the meal selector
+             showDialog
+               (
+               context: context,
+               builder: (BuildContext context)
+             {
+                 return AlertDialog
+                   (
+                   title: Text("Meal Schedule"),
+                   content: Container(height: 500, width: 500,),
+                 );
+               },
+             );
              setState(() {
                this.selectedDay = selectedDay;
              });
