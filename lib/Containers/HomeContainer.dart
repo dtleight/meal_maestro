@@ -18,7 +18,7 @@ class HomeContainer extends StatefulWidget
 class HomeContainerState extends State<HomeContainer>
 {
   List<Widget> active = [RecipeManagerPage(), ShoppingListPage(), MealPlanPage(), PantryPage(), SettingsPage()];
-  int index = 0;
+  int index = 2;
   @override
   Widget build(BuildContext context)
   {
@@ -28,8 +28,8 @@ class HomeContainerState extends State<HomeContainer>
       bottomNavigationBar: BottomNavigationBar
         (
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.calendar_today,), label: "Recipe Manager"),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_basket_rounded), label: "Shoping List"),
+          BottomNavigationBarItem(icon: Icon(Icons.calendar_today,), label: "Recipes"),
+          BottomNavigationBarItem(icon: Icon(Icons.shopping_basket_rounded), label: "Shop"),
           BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: "Calendar"),
           BottomNavigationBarItem(icon: Icon(Icons.food_bank), label: "Pantry"),
           BottomNavigationBarItem(icon: Icon(Icons.share), label: "Share")

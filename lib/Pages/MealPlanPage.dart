@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_maestro/Containers/CalendarDayContainer.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class MealPlanPage extends StatefulWidget
@@ -41,7 +42,10 @@ class MealPlanPageState extends State<MealPlanPage>
                  return AlertDialog
                    (
                    title: Text("Meal Schedule"),
-                   content: Container(height: 500, width: 500,),
+                   content: Container(
+                     height: 500, width: 500,
+                     child: CalendarDayContainer(),
+                   ),
                  );
                },
              );
@@ -51,7 +55,28 @@ class MealPlanPageState extends State<MealPlanPage>
            },
 
          ),
-       )
+       ),
+        Spacer(flex: 1,),
+        Flexible(
+          flex: 5,
+          child: Card(color: Colors.white,
+            child: Container(
+              height: 100, width: 500,
+              child: Center
+                (
+                child: Column(
+                  children: [
+                    Text("Todays Meals"),
+                    Divider(),
+                    Text("BLTs"),
+                    Text("Carnitas Tacos"),
+                    Text("Ice Cream Floats"),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }

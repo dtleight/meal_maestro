@@ -7,7 +7,6 @@ class APIRouter
 {
   Future<List<FoodItem>> searchByProductName(String name) async
   {
-    print("called");
     Uri uri = Uri.https(
         "api.edamam.com", "/api/food-database/v2/parser",
       {
@@ -21,8 +20,7 @@ class APIRouter
       // If the server did return a 200 OK response, parse the json
       List values = json.decode(response.body)['hints'];
       values.forEach((e) => results.add(FoodItem(e['food']['label'], e['food']['foodId'],e['food']['image']??"https://image.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600w-1037719192.jpg")));
-    // results.forEach((element) {print(element.name);});
-     return results;
+      return results;
     }
     else
     {
