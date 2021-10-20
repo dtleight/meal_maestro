@@ -33,6 +33,10 @@ class LoginPage extends StatelessWidget
          obscureText: true,
        ),
        Spacer(flex: 1,),
+       Row(
+         children: [
+           IconButton(icon: Icon(Icons.games_rounded), onPressed: ()async {await superState.signInWithGoogle();print("Signed in");superState.checkRegistrationStatus();},)],
+       ),
        TextButton(
          child: Text("Login", style: TextStyle(color: Colors.black),),
          onPressed: (){ superState.login(loginController.value.text,passwordController.value.text);},),

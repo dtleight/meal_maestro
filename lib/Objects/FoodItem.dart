@@ -4,6 +4,5 @@ class FoodItem
   String edamamID;
   String imageURL;
 
-
   FoodItem(this.name,this.edamamID, this.imageURL);
 }

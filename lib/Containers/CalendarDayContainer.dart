@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_maestro/Pages/PopupPages/DailyIngredientList.dart';
 import 'package:meal_maestro/Pages/PopupPages/HealthOutlookPage.dart';
+import 'package:meal_maestro/Pages/PopupPages/MealSchedulerPage.dart';
 import 'package:meal_maestro/Widgets/NavigationRow.dart';
 
 class CalendarDayContainer extends StatefulWidget
@@ -16,11 +18,13 @@ class CalendarDayContainerState extends State<CalendarDayContainer>
 {
   List<Widget> widgets =
         [
-          Container(height: 400, width: 400, color: Colors.red,),
+          //Container(height: 400, width: 400, color: Colors.red,),
+          MealSchedulerPage(),
           Container(height: 400, width: 400, color: Colors.blue,),
           HealthOutlookPage(),
           //Container(height: 400, width: 400, color: Colors.green,),
-          Container(height: 400, width: 400, color: Colors.orange,),
+          DailyIngredientList(),
+          //Container(height: 400, width: 400, color: Colors.orange,),
         ];
   late Widget active;
   @override

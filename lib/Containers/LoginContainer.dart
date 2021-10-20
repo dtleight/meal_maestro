@@ -102,10 +102,10 @@ class LoginContainerState extends State<LoginContainer>
         'email': email,
         'birthdate': birthdate,
         'recipes': [],
-        'pantry':[],
+        //'pantry': FirebaseFirestore().instance,
       },
     );
-
+    FirebaseFirestore.instance.collection("users").doc(uid).collection("pantry");
     moveToHomePage();
   }
 
