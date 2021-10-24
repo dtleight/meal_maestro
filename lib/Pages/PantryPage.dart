@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_maestro/Objects/FoodItem.dart';
 import 'package:meal_maestro/Utilities/APIRouter.dart';
+import 'package:meal_maestro/Utilities/DatabaseRouter.dart';
 import 'package:meal_maestro/Widgets/FoodGrid.dart';
 import 'package:meal_maestro/Widgets/Search%20Delegates/ProductSearchDelegate.dart';
 
@@ -20,7 +21,8 @@ class PantryPageState extends State<PantryPage> {
     return Stack(
       children: [
             FutureBuilder(
-              future: APIRouter().searchByProductName("Tomato"),
+              //future: APIRouter().searchByProductName("Tomato"),
+              future: DatabaseRouter().getPantry(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
                   List<FoodItem> items = snapshot.data;

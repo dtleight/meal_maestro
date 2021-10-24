@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_maestro/Objects/FoodItem.dart';
+import 'package:meal_maestro/Pages/AddPantryItemPage.dart';
 import 'package:meal_maestro/Utilities/APIRouter.dart';
 import 'package:meal_maestro/Widgets/FoodGrid.dart';
 
@@ -35,7 +36,16 @@ class IngredientSearchPageState extends State<IngredientSearchPage>
             ),
             ],
           ),
-          FoodGrid(items),
+          FoodGrid(
+            items,
+            onClick: (int index)
+            {
+              Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){return AddPantryItemPage(items[index]);
+              },
+              ),
+              );
+          },
+          ),
 
         ],
       ),

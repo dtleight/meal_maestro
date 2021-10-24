@@ -34,8 +34,13 @@ class LoginPage extends StatelessWidget
        ),
        Spacer(flex: 1,),
        Row(
+         mainAxisAlignment: MainAxisAlignment.center,
          children: [
-           IconButton(icon: Icon(Icons.games_rounded), onPressed: ()async {await superState.signInWithGoogle();print("Signed in");superState.checkRegistrationStatus();},)],
+           TextButton(
+             child: Image.network("https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-webinar-optimizing-for-success-google-business-webinar-13.png", height: 50, width: 50,),
+             onPressed: ()async {await superState.signInWithGoogle();print("Signed in");superState.checkRegistrationStatus();},
+           ),
+           ],
        ),
        TextButton(
          child: Text("Login", style: TextStyle(color: Colors.black),),

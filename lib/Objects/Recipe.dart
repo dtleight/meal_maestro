@@ -1,9 +1,8 @@
 import 'package:meal_maestro/Objects/Ingredient.dart';
-import 'package:meal_maestro/Objects/Quantity.dart';
 
 class Recipe
 {
-  String name = "";
+  String name;
   String imageSrc;
   int servingSize;
   List<Ingredient> ingredients = [];
@@ -14,15 +13,5 @@ class Recipe
   Recipe scale(int n)
   {
    return Recipe(name, imageSrc, servingSize*n, ingredients.map((e) => e.scale(n)).toList(), steps);
-  }
-
-  void main()
-  {
-    /**
-    Recipe r = new Recipe("", " ", 2,
-        {
-       Ingredient()
-    }, []);
-        **/
   }
 }

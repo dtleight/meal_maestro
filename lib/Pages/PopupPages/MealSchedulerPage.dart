@@ -26,7 +26,7 @@ class MealSchedulerPageState extends State<MealSchedulerPage>
   Widget build(BuildContext context)
   {
     return Container(
-      height: 400,width: 400,
+      height: 400, width: 400,
       child:
       Column(
         children: [
@@ -51,5 +51,4 @@ class MealSchedulerPageState extends State<MealSchedulerPage>
       ),
     );
   }
-
 }

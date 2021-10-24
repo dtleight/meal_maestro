@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:meal_maestro/Objects/FoodItem.dart';
 import 'package:meal_maestro/Objects/Ingredient.dart';
 import 'package:meal_maestro/Objects/OwnedIngredient.dart';
+import 'package:meal_maestro/Objects/Quantity.dart';
 import 'package:meal_maestro/Objects/Recipe.dart';
 
 import 'APIRouter.dart';
@@ -46,8 +47,9 @@ class DatabaseRouter
     for(DocumentSnapshot doc in ps.docs)
       {
         FoodItem food = await APIRouter().getItem(doc.get("edamanID"));
+        Map<String,dynamic> qMap = doc.get("quantity");
         //Get name, photoURL from edamanID
-        pantry.add(OwnedIngredient(food.name, doc.get("edamanID"), food.imageURL, doc.get("quantity"), doc.get("expirationDate")));
+        pantry.add(new OwnedIngredient(food.name, doc.get("edamanID"), food.imageURL, Quantity(qMap["value"], MeasurementUnits.values[qMap['type']]), (doc.get("expirationDate") as Timestamp).toDate()));
       }
     return pantry;
   }
@@ -59,6 +61,19 @@ class DatabaseRouter
         "edamanID": item.edamamID,
         "expirationDate": item.expirationDate,
          "quantity": item.quantity.toMap(),
+      }
+    );
+  }
+
+  Future<void> addPersonalRecipe(String name, String imageUrl, int servingSize, List<Ingredient> ingredients, List<String> instructions) async
+  {
+    //Fill this in later with ingredient fuzzification
+    DocumentReference recipeRef = await FirebaseFirestore.instance.collection("recipes").add(
+      {
+        "name": name,
+        "imageUrl": imageUrl,
+        "servingSize": servingSize,
+
       }
     );
   }
