@@ -24,8 +24,8 @@ class MealPlanPageState extends State<MealPlanPage>
        Card(
          color: Colors.white,
          child: TableCalendar(
-           firstDay: DateTime.utc(2021,10,1),
-           lastDay: DateTime.utc(2021,10,31),
+           firstDay: DateTime.utc(2021,11,1),
+           lastDay: DateTime.utc(2021,11,31),
            focusedDay: DateTime.now(),
            selectedDayPredicate: (day)
            {

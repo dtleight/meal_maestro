@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_maestro/Containers/RecipeStudioContainer.dart';
 import 'package:meal_maestro/Objects/Ingredient.dart';
 import 'package:meal_maestro/Objects/Quantity.dart';
 import 'package:meal_maestro/Objects/Recipe.dart';
-import 'package:meal_maestro/Pages/RecipeStudioPage.dart';
 
 import 'RecipePage.dart';
 
@@ -64,7 +64,7 @@ class RecipeManagerPageState extends State<RecipeManagerPage>
             alignment: Alignment.bottomRight,
             child: GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context){return RecipeStudioPage();}));
+                Navigator.push(context, MaterialPageRoute(builder: (context){return RecipeStudioContainer();}));
                 //APIRouter().searchByProductName("potato");
               },
               child: CircleAvatar(

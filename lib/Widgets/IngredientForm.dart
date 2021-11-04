@@ -49,10 +49,10 @@ class IngredientFormState extends State<IngredientForm> {
   Widget build(BuildContext context) {
     return Card(
       child: Form(
-        child: Container(
-          height: 400,
-          width: 400,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: 400, maxWidth: 400),
           child: ListView(
+            shrinkWrap: true,
             scrollDirection: Axis.vertical,
               children: [
             ...textItems,

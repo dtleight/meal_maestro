@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'Containers/HomeContainer.dart';
 import 'Containers/LoginContainer.dart';
 
+User? authUser;
 void main() async
 {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +20,11 @@ void main() async
   });
   String? token = await FirebaseMessaging.instance.getToken();
   print("FIREBASE TOKEN: " + token!);
+  FirebaseAuth.instance
+      .authStateChanges()
+      .listen((event){authUser = event;});
   runApp(MyApp());
+
 }
 
 class MyApp extends StatelessWidget
@@ -37,7 +44,7 @@ class MyApp extends StatelessWidget
 
       ),
       debugShowCheckedModeBanner: false,
-      home:LoginContainer(),
+      home:authUser!=null?HomeContainer():LoginContainer(),
     );
   }
 }

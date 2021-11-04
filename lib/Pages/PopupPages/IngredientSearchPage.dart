@@ -36,15 +36,18 @@ class IngredientSearchPageState extends State<IngredientSearchPage>
             ),
             ],
           ),
-          FoodGrid(
-            items,
-            onClick: (int index)
-            {
-              Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){return AddPantryItemPage(items[index]);
-              },
-              ),
-              );
-          },
+          Expanded(
+            flex: 1,
+            child: FoodGrid(
+              items,
+              onClick: (int index)
+              {
+                Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){return AddPantryItemPage(items[index]);
+                },
+                ),
+                );
+            },
+            ),
           ),
 
         ],

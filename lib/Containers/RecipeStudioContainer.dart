@@ -1,28 +1,41 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_maestro/Objects/Cuisine.dart';
+import 'package:meal_maestro/Objects/Ingredient.dart';
+import 'package:meal_maestro/Objects/RecipeCreator.dart';
 import 'package:meal_maestro/Widgets/IngredientForm.dart';
+import 'package:meal_maestro/Widgets/InstructionForm.dart';
 import 'package:meal_maestro/Widgets/NavigationRow.dart';
+import 'package:meal_maestro/Widgets/RecipeInfoForm.dart';
 
-class RecipeStudioPage extends StatefulWidget {
+class RecipeStudioContainer extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return RecipeStudioPageState();
+    return RecipeStudioContainerState();
   }
 }
 
-class RecipeStudioPageState extends State<RecipeStudioPage>
+class RecipeStudioContainerState extends State<RecipeStudioContainer>
 {
+  String? recipeName;
+  Cuisine? cuisineType;
+  List<Ingredient>? ingredients;
+  List<String>? insturctions;
+
+
+
   late Widget active;
   List<Widget> widgets = [
+    RecipeInfoForm(),
     IngredientForm(),
-    Container(height: 400, width: 400, color: Colors.blue,),
-    Container(height: 400, width: 400, color: Colors.green,),
+    InstructionForm(),
     Container(height: 400, width: 400, color: Colors.orange,)
   ];
   @override
   void initState() {
     active = widgets[0];
     super.initState();
+    RecipeCreator().init();
   }
 
   @override
@@ -31,6 +44,9 @@ class RecipeStudioPageState extends State<RecipeStudioPage>
     return Scaffold(
       appBar: AppBar(
         title: Text("Recipe Studio"),
+        actions: [
+          IconButton(icon: Icon(Icons.check), onPressed: (){print(RecipeCreator().name);},),
+        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -73,7 +89,10 @@ class RecipeStudioPageState extends State<RecipeStudioPage>
             ),
           ),
           Spacer(flex: 1,),
-          active,
+          Expanded(
+              flex: 10,
+              child: active,
+              ),
           Spacer(
             flex: 2,
           ),
@@ -82,17 +101,3 @@ class RecipeStudioPageState extends State<RecipeStudioPage>
     );
   }
 }
-/**
-  DefaultTabController(
-    length: 3,
-    child: TabBar
-    (
-    onTap: (int index){},
-    tabs: [
-    Tab(icon: Icon(Icons.book)),
-    Tab(icon: Icon(Icons.car_rental)),
-    Tab(icon: Icon(Icons.train))
-    ]
-    ),
-    ),
-    **/

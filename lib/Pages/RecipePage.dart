@@ -33,8 +33,9 @@ class RecipePage extends StatelessWidget
                     Container(
                       height: 50,
                       child: TabBar(
+                        labelColor: Colors.black,
                           tabs: [
-                            Tab(text: "Recipe", ),
+                            Tab(text: "Recipe",),
                             Tab(text: "Ingredients"),
                           ],
                         ),

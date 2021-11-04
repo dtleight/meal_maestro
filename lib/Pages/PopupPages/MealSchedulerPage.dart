@@ -13,9 +13,9 @@ class MealSchedulerPageState extends State<MealSchedulerPage>
 {
   List<Widget> items =
   [
-    ListTile(title: Text("Test Item"), key: Key("1"),),
-    ListTile(title: Text("Test Item 2"), key: Key("2"),),
-    ListTile(title: Text("Test Item 3"), key: Key("3"),),
+    ListTile(title: Text("BLTS"), key: Key("1"),),
+    ListTile(title: Text("Carnitas Tacos"), key: Key("2"),),
+    ListTile(title: Text("Ice Cream Floats"), key: Key("3"),),
   ];
 
   @override
