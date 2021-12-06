@@ -37,6 +37,12 @@ class MyApp extends StatelessWidget
       title: 'Meal Maestro',
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.blue,
+        //textTheme: TextTheme(bodyText1: TextStyle(),),
+        inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+      ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           showUnselectedLabels: true,
           backgroundColor: Colors.black,

@@ -17,6 +17,7 @@ class RecipeInfoForm extends RecipeStudioContainer
 class RecipeInfoFormState extends State<RecipeInfoForm>
 {
   TextEditingController textController = new TextEditingController(text: RecipeCreator().name);
+  TextEditingController valueController = new TextEditingController(text: RecipeCreator().servingSize.toString());
   CuisineController cuisineController = new CuisineController(value: RecipeCreator().cuisine?.index??0);
   final InputDecoration inputTheme = InputDecoration(
     filled: true,
@@ -51,6 +52,23 @@ class RecipeInfoFormState extends State<RecipeInfoForm>
                   ),
                 ],
               ),
+          ),
+          Container(
+            height: 100,
+            width: 400,
+            child: Row(
+              children: [
+                Text("Serving Size", style: TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
+                Expanded(
+                  child: TextField(
+                    maxLines: 1,
+                    controller: valueController,
+                    decoration: inputTheme,
+                    onChanged: (String result){RecipeCreator().servingSize = double.parse(result);},
+                  ),
+                ),
+              ],
+            ),
           ),
           Container(
             height: 100,

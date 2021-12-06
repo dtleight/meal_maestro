@@ -2,8 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_maestro/Objects/Cuisine.dart';
 import 'package:meal_maestro/Objects/Ingredient.dart';
+import 'package:meal_maestro/Objects/Quantity.dart';
+import 'package:meal_maestro/Objects/Recipe.dart';
 import 'package:meal_maestro/Objects/RecipeCreator.dart';
+import 'package:meal_maestro/Utilities/DatabaseRouter.dart';
 import 'package:meal_maestro/Widgets/IngredientForm.dart';
+import 'package:meal_maestro/Widgets/IngredientsList.dart';
 import 'package:meal_maestro/Widgets/InstructionForm.dart';
 import 'package:meal_maestro/Widgets/NavigationRow.dart';
 import 'package:meal_maestro/Widgets/RecipeInfoForm.dart';
@@ -17,13 +21,6 @@ class RecipeStudioContainer extends StatefulWidget {
 
 class RecipeStudioContainerState extends State<RecipeStudioContainer>
 {
-  String? recipeName;
-  Cuisine? cuisineType;
-  List<Ingredient>? ingredients;
-  List<String>? insturctions;
-
-
-
   late Widget active;
   List<Widget> widgets = [
     RecipeInfoForm(),
@@ -45,7 +42,7 @@ class RecipeStudioContainerState extends State<RecipeStudioContainer>
       appBar: AppBar(
         title: Text("Recipe Studio"),
         actions: [
-          IconButton(icon: Icon(Icons.check), onPressed: (){print(RecipeCreator().name);},),
+          IconButton(icon: Icon(Icons.check), onPressed: (){approveRecipe();},),
         ],
       ),
       body: Column(
@@ -99,5 +96,41 @@ class RecipeStudioContainerState extends State<RecipeStudioContainer>
         ],
       ),
     );
+  }
+
+  List<Ingredient> generateIngredientsFromInput()
+  {
+    List<Ingredient> ingredients = [];
+    for(IngredientField ingredientField in RecipeCreator().ingredientData)
+      {
+        if(ingredientField.foodItem != null)
+        {
+          ingredients.add(new Ingredient(
+              ingredientField.foodItem!.name, ingredientField.foodItem!.edamamID, ingredientField.foodItem!.imageURL,
+              new Quantity(double.parse(ingredientField.valueController.text),
+                  MeasurementUnits.values[ingredientField.measurementController
+                      .value])
+          ));
+        }
+      }
+    return ingredients;
+  }
+
+  List<String> generateInstructionsFromInput()
+  {
+    List<String> instructions = [];
+    for(InstructionField instructionField in RecipeCreator().instructionData)
+      {
+        instructions.add(instructionField.textController.text);
+      }
+    return instructions;
+  }
+
+  void approveRecipe()
+  {
+    Recipe r = new Recipe(RecipeCreator().name??"", "",RecipeCreator().servingSize??1.0, generateIngredientsFromInput(), generateInstructionsFromInput());
+    print(r.toString());
+    DatabaseRouter().addPersonalRecipe(r);
+    Navigator.pop(context);
   }
 }

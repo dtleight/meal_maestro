@@ -12,9 +12,9 @@ class Ingredient extends FoodItem
     return Ingredient(name,edamamID,imageURL,quantity.scale(n));
   }
 
-  Ingredient.fromDatabase(Map<String,dynamic> ingredientMap):super(ingredientMap['name'],ingredientMap['edamanID'], "")
+  Ingredient.fromDatabase(Map<String,dynamic> ingredientMap):super("",ingredientMap['edamanID'], "")
   {
-    quantity = Quantity(ingredientMap['quantity'],MeasurementUnits.cups);
+    quantity = Quantity(ingredientMap['quantity'],MeasurementUnits.values[ingredientMap['measurementType']]);
   }
 
 }

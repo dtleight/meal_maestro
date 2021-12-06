@@ -1,7 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:meal_maestro/Objects/FoodItem.dart';
+import 'package:meal_maestro/Objects/Ingredient.dart';
+import 'package:meal_maestro/Objects/Quantity.dart';
+import 'package:meal_maestro/Objects/RecipeCreator.dart';
+import 'package:meal_maestro/Widgets/ExpandableList.dart';
 import 'package:meal_maestro/Widgets/MeasurementDropdown.dart';
+import 'package:meal_maestro/Widgets/Search%20Delegates/ProductSearchDelegate.dart';
 
 class IngredientForm extends StatefulWidget {
   @override
@@ -11,56 +17,19 @@ class IngredientForm extends StatefulWidget {
 }
 
 class IngredientFormState extends State<IngredientForm> {
-  List<Widget> textItems = [
-    Padding(
-      padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
-      child: IngredientField(),
-    ),
-  ];
-  late Widget addButton;
-  late Widget removeButton;
-
-  @override
-  void initState() {
-    addButton = IconButton(
-        onPressed: () {
-          setState(() {
-            textItems.add(
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
-                child: IngredientField(),
-              ),
-            );
-          });
-        },
-        icon: Icon(Icons.add));
-    removeButton = IconButton(
-        onPressed: () {
-          setState(() {
-            textItems.removeLast();
-          });
-        },
-        icon: Icon(Icons.remove));
-
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Card(
       child: Form(
         child: ConstrainedBox(
           constraints: BoxConstraints(maxHeight: 400, maxWidth: 400),
-          child: ListView(
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-              children: [
-            ...textItems,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [addButton, textItems.length > 1?removeButton:Container()],
-            )
-          ]),
+          child: ExpandableList(
+            initial: RecipeCreator().ingredientData,
+            builder: (int index) {
+                return IngredientField();
+
+            },
+          ),
         ),
       ),
     );
@@ -68,15 +37,17 @@ class IngredientFormState extends State<IngredientForm> {
 }
 
 class IngredientField extends StatelessWidget {
-  final InputDecoration inputTheme = InputDecoration(
-    filled: true,
-    fillColor: Colors.white,
-    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
-  );
 
   TextEditingController nameController = new TextEditingController();
   TextEditingController valueController = new TextEditingController();
-  MeasurementController measurementController = new MeasurementController();
+  MeasurementController measurementController = new MeasurementController(0);
+  FoodItem? foodItem = null;
+  IngredientField();
+  IngredientField.fromIngredient(Ingredient ingredient)
+  {
+    measurementController = new MeasurementController(ingredient.quantity.type.index);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -86,22 +57,38 @@ class IngredientField extends StatelessWidget {
             height: 40,
             width: 300,
             child: TextField(
+              onTap: ()async
+              {
+                foodItem = await showSearch<FoodItem>(context: context, delegate: ProductSearchDelegate());
+                nameController.text = foodItem?.name??"";
+                },
               controller: nameController,
-              decoration: inputTheme,
+              //decoration: inputTheme,
             )),
         Row(
           children: [
-            Spacer(flex: 1,),
+            Spacer(
+              flex: 1,
+            ),
             Container(
                 height: 40,
                 width: 100,
                 child: TextField(
                   controller: valueController,
-                  decoration: inputTheme,
+                  //decoration: inputTheme,
                 )),
-            Spacer(flex: 1,),
-            MeasurementDropdown(controller: measurementController,),
-            Spacer(flex: 1,),
+            Spacer(
+              flex: 1,
+            ),
+            MeasurementDropdown(
+              controller: measurementController,
+              onChanged: (int value){
+                RecipeCreator().measurementUnits.add(MeasurementUnits.values[value]);
+                },
+            ),
+            Spacer(
+              flex: 1,
+            ),
           ],
         ),
       ],

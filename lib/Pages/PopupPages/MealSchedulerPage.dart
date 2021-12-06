@@ -1,27 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_maestro/Objects/Recipe.dart';
+import 'package:meal_maestro/Utilities/DatabaseRouter.dart';
+import 'package:meal_maestro/Widgets/ExpandableList.dart';
+import 'package:meal_maestro/Widgets/MealContainer.dart';
 
 class MealSchedulerPage extends StatefulWidget
 {
+  DateTime date;
+  MealSchedulerPage(this.date);
+
   @override
   State<StatefulWidget> createState()
   {
-    return MealSchedulerPageState();
+    return MealSchedulerPageState(date);
   }
 }
 class MealSchedulerPageState extends State<MealSchedulerPage>
 {
-  List<Widget> items =
-  [
-    ListTile(title: Text("BLTS"), key: Key("1"),),
-    ListTile(title: Text("Carnitas Tacos"), key: Key("2"),),
-    ListTile(title: Text("Ice Cream Floats"), key: Key("3"),),
-  ];
+  DateTime date;
+  MealSchedulerPageState(this.date);
 
-  @override
-  void initState() {
-    //items.map((e) => Container(child:e,key: Key(items.indexOf(e).toString()) ,));
-  }
   @override
   Widget build(BuildContext context)
   {
@@ -30,22 +29,19 @@ class MealSchedulerPageState extends State<MealSchedulerPage>
       child:
       Column(
         children: [
-          Flexible(flex: 1, child: Container(color: Colors.blue,),),
           Flexible(
             flex: 9,
-            child: ReorderableListView
-              (
-              onReorder: (int oldIndex, int newIndex) {
-                setState(() {
-                  if (oldIndex < newIndex) {
-                    newIndex -= 1;
+            child:
+
+            FutureBuilder(
+              future: DatabaseRouter().getPersonalRecipes(),
+              builder: (BuildContext context,AsyncSnapshot<List<Recipe>>snapshot) {
+                if(snapshot.hasData) {
+                  return MealContainer(snapshot.data??[]);
+                }
+                return CircularProgressIndicator();
                   }
-                  final Widget item = items.removeAt(oldIndex);
-                  items.insert(newIndex, item);
-                });
-              },
-              children: items,
-            ),
+            )
           ),
         ],
       ),

@@ -1,13 +1,18 @@
-import 'package:meal_maestro/Objects/Ingredient.dart';
+import 'package:meal_maestro/Objects/Quantity.dart';
+import 'package:meal_maestro/Widgets/IngredientForm.dart';
+import 'package:meal_maestro/Widgets/InstructionForm.dart';
+import 'package:meal_maestro/Widgets/MeasurementDropdown.dart';
 
 import 'Cuisine.dart';
 
 class RecipeCreator
 {
   String? name;
+  double? servingSize;
   Cuisine? cuisine;
-  List<Ingredient>? ingredients;
-  List<String>? instructions;
+  List<IngredientField> ingredientData = [];
+  List<InstructionField> instructionData= [];
+  List<MeasurementUnits> measurementUnits = [];
 
 
   static final RecipeCreator _rc = RecipeCreator._internal();
@@ -23,15 +28,16 @@ class RecipeCreator
   ///
   void init() async
   {
-
+    reset();
   }
 
   void reset()
   {
-    name = null;
+    name = "";
     cuisine = null;
-    ingredients = null;
-    instructions = null;
+    servingSize = 1.0;
+    ingredientData = [];
+    instructionData = [];
   }
 
 

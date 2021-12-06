@@ -14,7 +14,7 @@ class AddPantryItemPage extends StatelessWidget
   TextEditingController valueController = new TextEditingController();
   //TextEditingController valueController = new TextEditingController();
   //TextEditingController valueController = new TextEditingController();
-  MeasurementController measurementController = new MeasurementController();
+  MeasurementController measurementController = new MeasurementController(0);
   final InputDecoration inputTheme = InputDecoration(
     filled: true,
     fillColor: Colors.white,

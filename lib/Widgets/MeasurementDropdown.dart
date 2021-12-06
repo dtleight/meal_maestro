@@ -4,27 +4,29 @@ import "package:meal_maestro/Objects/Quantity.dart";
 
 class MeasurementDropdown extends StatefulWidget
 {
-  MeasurementController? controller;
-  MeasurementDropdown({this.controller});
+  MeasurementController controller;
+  void Function(int value)? onChanged;
+  MeasurementDropdown({required this.controller, this.onChanged});
   @override
   State<StatefulWidget> createState() {
-    return MeasurementDropdownState(controller:controller);
+    return MeasurementDropdownState(controller:controller, onChanged: onChanged);
   }
 }
 class MeasurementDropdownState extends State<MeasurementDropdown>
 {
-  MeasurementController? controller;
-  MeasurementDropdownState({this.controller});
-  int ddVal = 0;
+  MeasurementController controller;
+  void Function(int value)? onChanged;
+  MeasurementDropdownState({required this.controller, this.onChanged});
   @override
   Widget build(BuildContext context)
   {
     return DropdownButton<int>(
-      value: ddVal,
+      value: controller.value,
       onChanged: (int? newValue)
       {
-        setState((){ddVal = newValue??0;});
-        controller?.setValue(newValue??0);
+        setState((){controller.value = newValue??0;});
+        //controller.setValue(newValue??0);
+        onChanged!(newValue??0);
       },
       items: List<DropdownMenuItem<int>>.generate(
             MeasurementUnits.values.length,
@@ -44,10 +46,5 @@ class MeasurementDropdownState extends State<MeasurementDropdown>
 class MeasurementController
 {
   int value = 0;
-  MeasurementController();
-
-  void setValue(int value)
-  {
-    this.value = value;
-  }
+  MeasurementController(this.value);
 }

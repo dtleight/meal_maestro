@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'MeasurementDropdown.dart';
+import 'package:meal_maestro/Objects/RecipeCreator.dart';
+import 'package:meal_maestro/Widgets/ExpandableList.dart';
 
 class InstructionForm extends StatefulWidget {
   @override
@@ -11,40 +11,6 @@ class InstructionForm extends StatefulWidget {
 }
 
 class InstructionFormState extends State<InstructionForm> {
-  List<Widget> textItems = [
-    Padding(
-      padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
-      child: InstructionField(1),
-    ),
-  ];
-  late Widget addButton;
-  late Widget removeButton;
-
-  @override
-  void initState() {
-    addButton = IconButton(
-        onPressed: () {
-          setState(() {
-            textItems.add(
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
-                child: InstructionField(textItems.length+1),
-              ),
-            );
-          });
-        },
-        icon: Icon(Icons.add));
-    removeButton = IconButton(
-        onPressed: () {
-          setState(() {
-            textItems.removeLast();
-          });
-        },
-        icon: Icon(Icons.remove));
-
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -52,16 +18,19 @@ class InstructionFormState extends State<InstructionForm> {
         child: Container(
           height: 400,
           width: 400,
-          child: ListView(scrollDirection: Axis.vertical, children: [
-            ...textItems,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                addButton,
-                textItems.length > 1 ? removeButton : Container()
-              ],
-            )
-          ]),
+          child:
+            ExpandableList(
+              initial: RecipeCreator().instructionData,
+              builder: (int index)
+                {
+                  //return Padding
+                 // (
+                 //     padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+                      //child:
+                      return InstructionField(index+1);//,
+                  //);
+                }
+                ),
         ),
       ),
     );
@@ -92,6 +61,7 @@ class InstructionField extends StatelessWidget
                 Text(index.toString(), style: TextStyle(fontWeight: FontWeight.w600,fontSize: 20),),
                 Expanded(
                   child: TextField(
+                    //onChanged: (String value){RecipeCreator().instructions?[index] = value;},
                     maxLines: 3,
                     controller: textController,
                     decoration: inputTheme,
